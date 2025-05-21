@@ -16,6 +16,15 @@ export default class Assert {
     async assertURL(url: string) {
         await expect(this.page).toHaveURL(url);
     }
+    async assertElementIsVisible(locator: string) {
+        const element = this.page.locator(locator);
+        await expect(element).toBeVisible();
+    }
+
+    async assertTrue(condition :  boolean) {
+        const result = condition; 
+        expect(result).toBe(true);
+    }
 
     async assertURLContains(title: string) {
         const pageURL = this.page.url();

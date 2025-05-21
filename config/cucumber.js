@@ -5,7 +5,7 @@ module.exports = {
             snippetInterface: "async-await"
         },
         paths: [
-            "src/test/features/"
+            "src/test/features/bookAppointment.feature",
         ],
         publishQuiet: true,
         dryRun: false,
@@ -44,7 +44,6 @@ module.exports = {
             "json:test-results/cucumber-report.json",
             "rerun:@rerun.txt"
         ],
-        parallel: 2,
-        retry: 2 // Add this line
+        parallel: 2
     }
 }

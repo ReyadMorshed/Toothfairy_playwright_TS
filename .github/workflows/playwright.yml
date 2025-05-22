@@ -21,13 +21,20 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libasound2 libffi-dev libx264-dev || true
         if ! dpkg -s libasound2 >/dev/null 2>&1; then
-          echo "Package libasound2 is not available, installing manually..."
+          echo "Package libasound2 is not available, installing alsa-utils instead..."
           sudo apt-get install -y alsa-utils
+        fi
+        if ! dpkg -s libffi-dev >/dev/null 2>&1; then
+          echo "libffi-dev not available, trying installation of libffi8..."
+          sudo apt-get install -y libffi8
+        fi
+        if ! dpkg -s libx264-dev >/dev/null 2>&1; then
+          echo "libx264-dev not available, skipping or finding an alternative package..."
         fi
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install-deps && npx playwright install
     - name: Run Cucumber tests
       run: npm test
     - uses: actions/upload-artifact@v4

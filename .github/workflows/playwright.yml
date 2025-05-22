@@ -9,37 +9,45 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
-    - name: Install required system dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y software-properties-common
-        sudo add-apt-repository universe
-        sudo apt-get update
-        sudo apt-get install -y libasound2 libffi-dev libx264-dev || true
-        if ! dpkg -s libasound2 >/dev/null 2>&1; then
-          echo "Package libasound2 is not available, installing alsa-utils instead..."
-          sudo apt-get install -y alsa-utils
-        fi
-        if ! dpkg -s libffi-dev >/dev/null 2>&1; then
-          echo "libffi-dev not available, trying installation of libffi8..."
-          sudo apt-get install -y libffi8
-        fi
-        if ! dpkg -s libx264-dev >/dev/null 2>&1; then
-          echo "libx264-dev not available, skipping or finding an alternative package..."
-        fi
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install-deps && npx playwright install
-    - name: Run Cucumber tests
-      run: npm test
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: Report
-        path: test-results
-        retention-days: 2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install required system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository universe
+          sudo apt-get update
+
+          # Attempt to install primary dependencies, continue if unavailable
+          sudo apt-get install -y libasound2 libffi-dev libx264-dev || true
+
+          # Fallback for libasound2
+          if ! dpkg -s libasound2 >/dev/null 2>&1; then
+            echo "Package libasound2 is not available, installing alsa-utils instead..."
+            sudo apt-get install -y alsa-utils
+          fi
+
+          # Fallback for libffi (use libffi8 if libffi-dev is missing)
+          if ! dpkg -s libffi-dev >/dev/null 2>&1; then
+            echo "libffi-dev not available, trying installation of libffi8..."
+            sudo apt-get install -y libffi8 || echo "libffi8 also unavailable"
+          fi
+
+          # Fallback for libx264-dev
+          if ! dpkg -s libx264-dev >/dev/null 2>&1; then
+            echo "libx264-dev not available, skipping or finding an alternative package..."
+          fi
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install-deps && npx playwright install
+      - name: Run Cucumber tests
+        run: npm test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Report
+          path: test-results
+          retention-days: 2

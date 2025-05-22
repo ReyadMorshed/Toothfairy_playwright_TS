@@ -19,7 +19,11 @@ jobs:
         sudo apt-get install -y software-properties-common
         sudo add-apt-repository universe
         sudo apt-get update
-        sudo apt-get install -y libasound2 libffi-dev libx264-dev
+        sudo apt-get install -y libasound2 libffi-dev libx264-dev || true
+        if ! dpkg -s libasound2 >/dev/null 2>&1; then
+          echo "Package libasound2 is not available, installing manually..."
+          sudo apt-get install -y alsa-utils
+        fi
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers

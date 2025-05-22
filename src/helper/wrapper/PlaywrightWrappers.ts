@@ -43,4 +43,12 @@ export default class PlaywrightWrapper {
         ])
     }
 
+    async getText(locator: string): Promise<string> {
+        const element = this.page.locator(locator);
+        await element.waitFor({
+            state: "visible"
+        });
+        return await element.innerText();
+    }
+
 }

@@ -44,6 +44,7 @@ Then('user click on the cofirm booking button', async function () {
    
 
 Then('user should see the booking confirmation message', async function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
+      const msg = await bookAppointmentPage.validateConfirmationMsg();
+      assert = new Assert(fixture.page);
+      await assert.assertEqual("Booking Confirmed", msg);
          });

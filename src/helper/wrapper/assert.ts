@@ -31,4 +31,13 @@ export default class Assert {
         expect(pageURL).toContain(title);
     }
 
+    async assertText(locator: string, text: string) {
+        const element = this.page.locator(locator);
+        await expect(element).toHaveText(text);
+    }
+
+    async assertEqual(actual: string, expected: string) {
+        expect(actual).toBe(expected);
+    }
+
 }

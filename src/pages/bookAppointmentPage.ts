@@ -14,7 +14,8 @@ export default class BookAppointmentPage  {
 
         firstSlot : "//div[@class = 'timeslotslistparent']/div/div/div[1]",
         proccedBtn : "//button[normalize-space()='proceed to book']",
-        confirmBtn : "//button[normalize-space()='Confirm Booking']"
+        confirmBtn : "//button[normalize-space()='Confirm Booking']",
+        confirmationMsg : "//div[@class='tit']"
         
     }
 
@@ -41,5 +42,10 @@ export default class BookAppointmentPage  {
     async clickOnConfirmBtn() {
         await this.base.waitAndClick(this.Elements.confirmBtn);
         
+    }
+    async validateConfirmationMsg (){
+        const msg = await this.base.getText(this.Elements.confirmationMsg)
+        return msg;
+
     }   
 }

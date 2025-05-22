@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 193101100
+              "duration": 187951900
             }
           },
           {
@@ -27,7 +27,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 8419785799
+              "duration": 7305094100
             }
           },
           {
@@ -40,7 +40,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 4482249499
+              "duration": 4461430599
             }
           },
           {
@@ -53,7 +53,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 147346700
+              "duration": 153608899
             }
           },
           {
@@ -66,7 +66,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 211381400
+              "duration": 215618699
             }
           },
           {
@@ -79,7 +79,7 @@
             },
             "result": {
               "status": "passed",
-              "duration": 2037714400
+              "duration": 2412451700
             }
           },
           {
@@ -88,11 +88,11 @@
             "line": 11,
             "name": "user go to the doctor details page",
             "match": {
-              "location": "src\\test\\steps\\bookAppointmentSteps.ts:10"
+              "location": "src\\test\\steps\\bookAppointmentSteps.ts:15"
             },
             "result": {
               "status": "passed",
-              "duration": 5436112999
+              "duration": 5414892899
             }
           },
           {
@@ -101,11 +101,11 @@
             "line": 12,
             "name": "user select a date and time slot",
             "match": {
-              "location": "src\\test\\steps\\bookAppointmentSteps.ts:17"
+              "location": "src\\test\\steps\\bookAppointmentSteps.ts:22"
             },
             "result": {
               "status": "passed",
-              "duration": 3098200
+              "duration": 7081344299
             }
           },
           {
@@ -114,11 +114,11 @@
             "line": 13,
             "name": "user click on the procced button",
             "match": {
-              "location": "src\\test\\steps\\bookAppointmentSteps.ts:23"
+              "location": "src\\test\\steps\\bookAppointmentSteps.ts:33"
             },
             "result": {
-              "status": "pending",
-              "duration": 2501000
+              "status": "passed",
+              "duration": 2906727199
             }
           },
           {
@@ -127,11 +127,11 @@
             "line": 14,
             "name": "user click on the cofirm booking button",
             "match": {
-              "location": "src\\test\\steps\\bookAppointmentSteps.ts:30"
+              "location": "src\\test\\steps\\bookAppointmentSteps.ts:40"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "passed",
+              "duration": 611924800
             }
           },
           {
@@ -140,11 +140,11 @@
             "line": 15,
             "name": "user should see the booking confirmation message",
             "match": {
-              "location": "src\\test\\steps\\bookAppointmentSteps.ts:37"
+              "location": "src\\test\\steps\\bookAppointmentSteps.ts:46"
             },
             "result": {
-              "status": "skipped",
-              "duration": 0
+              "status": "pending",
+              "duration": 1349900
             }
           },
           {
@@ -152,7 +152,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 514286700
+              "duration": 935892599
             }
           }
         ],

@@ -26,6 +26,16 @@ export default class PlaywrightWrapper {
         await element.fill(text);
     }
 
+    async getCurrentDate(): Promise<string> {
+    const currentDate = new Date();
+    return currentDate.toLocaleDateString('en-US', { 
+        month: 'long', 
+        day: 'numeric', 
+        year: 'numeric' 
+    }).replace(/\s+/g, ' ').trim(); // Removes unwanted spaces or line breaks
+}
+
+
     async navigateTo(link: string) {
         await Promise.all([
             this.page.waitForNavigation(),

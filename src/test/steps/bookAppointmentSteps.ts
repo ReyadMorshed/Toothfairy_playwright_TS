@@ -4,8 +4,13 @@ import { fixture } from "../../hooks/pageFixture";
 import LoginPage from "../../pages/loginPage";
 import Assert from "../../helper/wrapper/assert";
 import HomePage from "../../pages/homePage";
+import DoctorPage from "../../pages/doctorPage";
+import BookAppointmentPage from "../../pages/bookAppointmentPage";
+
 
 let homePage: HomePage;
+let doctorPage: DoctorPage
+let bookAppointmentPage: BookAppointmentPage;
 let assert: Assert;
 Then('user go to the doctor details page', async function () {
       homePage = new HomePage(fixture.page);
@@ -15,21 +20,25 @@ Then('user go to the doctor details page', async function () {
    
 
 Then('user select a date and time slot', async function () {
-           
+     doctorPage = new DoctorPage(fixture.page); 
+     await doctorPage.clikcOnBookConsultationBtn();
+     bookAppointmentPage = new BookAppointmentPage(fixture.page);
+     await bookAppointmentPage.selectDate();
+     await bookAppointmentPage.selectTimeSlot();
+      
          });
 
    
 
 Then('user click on the procced button', async function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
+     await bookAppointmentPage.clickOnProccedBtn();
+     await fixture.page.waitForTimeout(2000); 
          });
 
    
 
 Then('user click on the cofirm booking button', async function () {
-           // Write code here that turns the phrase above into concrete actions
-           return 'pending';
+      await bookAppointmentPage.clickOnConfirmBtn();     
          });
 
    

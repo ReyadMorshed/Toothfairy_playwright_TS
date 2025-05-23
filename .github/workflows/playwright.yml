@@ -20,28 +20,27 @@ jobs:
           sudo add-apt-repository universe
           sudo apt-get update
 
-          # Attempt to install required dependencies with improved compatibility for Ubuntu 24.04
+          # Install dependencies with correct names for Ubuntu 24.04
           sudo apt-get install -y libasound2t64 libffi8 libx264-dev || true
 
-          # Fallback for libasound2
+          # Fallback handling
           if ! dpkg -s libasound2t64 >/dev/null 2>&1; then
             echo "libasound2t64 not available, installing alsa-utils instead..."
             sudo apt-get install -y alsa-utils
           fi
 
-          # Fallback for libffi
           if ! dpkg -s libffi8 >/dev/null 2>&1; then
-            echo "libffi8 not available, skipping..."
+            echo "libffi8 not available, trying libffi-dev..."
+            sudo apt-get install -y libffi-dev || echo "libffi-dev also unavailable"
           fi
 
-          # Check for libx264-dev fallback
           if ! dpkg -s libx264-dev >/dev/null 2>&1; then
             echo "libx264-dev not available, skipping..."
           fi
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
-        run: npx playwright install-deps && npx playwright install
+        run: npx playwright install-deps || echo "Playwright deps failed, continuing..." && npx playwright install
       - name: Run Cucumber tests
         run: npm test
       - uses: actions/upload-artifact@v4

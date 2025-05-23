@@ -20,24 +20,23 @@ jobs:
           sudo add-apt-repository universe
           sudo apt-get update
 
-          # Attempt to install primary dependencies, continue if unavailable
-          sudo apt-get install -y libasound2 libffi-dev libx264-dev || true
+          # Attempt to install required dependencies with improved compatibility for Ubuntu 24.04
+          sudo apt-get install -y libasound2t64 libffi8 libx264-dev || true
 
           # Fallback for libasound2
-          if ! dpkg -s libasound2 >/dev/null 2>&1; then
-            echo "Package libasound2 is not available, installing alsa-utils instead..."
+          if ! dpkg -s libasound2t64 >/dev/null 2>&1; then
+            echo "libasound2t64 not available, installing alsa-utils instead..."
             sudo apt-get install -y alsa-utils
           fi
 
-          # Fallback for libffi (use libffi8 if libffi-dev is missing)
-          if ! dpkg -s libffi-dev >/dev/null 2>&1; then
-            echo "libffi-dev not available, trying installation of libffi8..."
-            sudo apt-get install -y libffi8 || echo "libffi8 also unavailable"
+          # Fallback for libffi
+          if ! dpkg -s libffi8 >/dev/null 2>&1; then
+            echo "libffi8 not available, skipping..."
           fi
 
-          # Fallback for libx264-dev
+          # Check for libx264-dev fallback
           if ! dpkg -s libx264-dev >/dev/null 2>&1; then
-            echo "libx264-dev not available, skipping or finding an alternative package..."
+            echo "libx264-dev not available, skipping..."
           fi
       - name: Install dependencies
         run: npm ci
